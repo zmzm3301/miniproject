@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+      .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none;
+
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal.show {
+        display: block;
+      }
+
+      .modal_body {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 400px;
+        height: 600px;
+
+        padding: 40px;
+
+        text-align: center;
+
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+        transform: translateX(-50%) translateY(-50%);
+      }
+
+      .card {
+  .card-header {
+    .dropdown {
+      line-height: 1;
+      .dropdown-menu {
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .card-header[data-toggle="collapse"] {
+    text-decoration: none;
+    position: relative;
+    padding: 0.75rem 3.25rem 0.75rem 1.25rem;
+    &::after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding-right: 1.725rem;
+      line-height: 51px;
+      font-weight: 900;
+      content: '\f107';
+      font-family: 'Font Awesome 5 Free';
+      color: $gray-400;
+    }
+    &.collapsed {
+      border-radius: $card-border-radius;
+      &::after {
+        content: '\f105';
+      }
+    }
+  }
+}
+    .led_color_box {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+    }
+
+    .led_color_box_input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        width: 40px;
+        height: 40px;
+        border: none;
+    }
+
+    .led_color_box_input::-webkit-color-swatch {
+        border: none;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal_body">
+        <form method="POST">
+          {% csrf_token %}
+          <div><br /> <br /> <br /> <br />
+              <p>BATTERY</p><input type="text" name="battery"/> <br /> <br /> <br /> <br />
+              <p>LED</p><input type="color" name="led_color" /><br /> <br /> <br /> <br />
+              <input type="submit" value="저장" />
+              <input type="button" value="취소" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <button class="btn-open-popup">Modal 띄우기</button>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+        </div>
+        <div class="card-body">
+            {% if bat %}
+            <h4 class="small font-weight-bold">BATTERY <span
+                    class="float-right">{{ bat }}</span></h4>
+
+            {% endif %}
+            <div class="progress mb-4">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            {% if led_color %}
+            <h4 class="small font-weight-bold">LED_COLOR <span
+                    class="float-right">{{ led_color }}</span>
+            </h4>
+            {% endif %}
+            <div class="progress mb-4">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        <input class="led_color_box_input" type="color" value="{{ led_color }}" disabled/>
+    </div>
+
+    <script>
+      const body = document.querySelector('body');
+      const modal = document.querySelector('.modal');
+      const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+      btnOpenPopup.addEventListener('click', () => {
+        modal.classList.toggle('show');
+
+        if (modal.classList.contains('show')) {
+          body.style.overflow = 'hidden';
+        }
+      });
+
+      modal.addEventListener('click', (event) => {
+          // modal.classList.toggle('show');
+
+          if (!modal.classList.contains('show')) {
+            body.style.overflow = 'auto';
+          }
+      });
+
+    </script>
+  </body>
+</html>
