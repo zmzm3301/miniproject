@@ -6,6 +6,7 @@ def index(request):
     if request.method == "POST":
         bat = request.POST['battery']
         led_color = request.POST['led_color']
+        run_time = request.POST['run_time']
 
         p = Post()
 
@@ -14,6 +15,7 @@ def index(request):
 
         p.battery = bat
         p.led_color = led_color
+        p.run_time = run_time
 
         p.save()
         return render(
@@ -22,6 +24,7 @@ def index(request):
             {
                 'bat': bat,
                 'led_color': led_color,
+                'run_time': run_time,
             }
         )
 
@@ -34,3 +37,4 @@ def index(request):
                 "posts": posts
             }
         )
+
